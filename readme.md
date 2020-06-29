@@ -57,3 +57,29 @@ Tambien podemos configurar los scripts del archivo `package.json`:
 }
 ```
 
+## Cargando configuraciones por defecto y personalizadas
+
+
+## Múltiples puntos de entrada
+
+Para la generación de multiples archivos de tipo bundle podemos pasarle en nuestra configuracion de entrada del archivo `webpack.config.js`:
+
+```js
+//...
+  entry: {
+    home: path.resolve(__dirname, 'src/js/home.js'),
+    precio: path.resolve(__dirname, 'src/js/precio.js'),
+    contacto: path.resolve(__dirname, 'src/js/contacto.js')
+  },
+//...
+```
+Para que no exista ningun error en la salida, debemos tener asignado un archivo de salida para cada una de las entradas, esto se podría hacer añadiendo un template en valor de la propiedad `filename` de `output` de la siguiente forma:
+
+```js
+//...
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'js/[name].js'
+  }
+//...
+```
