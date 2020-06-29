@@ -83,3 +83,39 @@ Para que no exista ningun error en la salida, debemos tener asignado un archivo 
   }
 //...
 ```
+
+## Introducción al uso de plugins
+
+Los Plugins sirven para extender las capacidades de webpack y dar más poder a los loaders.
+
+### Instalación de plugin css y html
+
+Este plugin permite realizar operaciones a un archivo css, para su instalacion:
+
+```bash
+ npm install mini-css-extract-plugin html-webpack-plugin -D
+```
+
+En el archivo `webpack.config.js` debe importar los paquetes
+
+```js
+...
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+...
+  use: [
+  {
+    loader: MiniCssExtractPlugin.loader
+  },
+  'css-loader'
+  ]
+...
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'css/[name].css'
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Plugins'
+    })
+  ]
+```
