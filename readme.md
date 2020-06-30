@@ -119,3 +119,66 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
     })
   ]
 ```
+
+## Servidor de desarrollo
+
+Para usar el servidor de desarrollo que provee Webpack, se debe instalar de la siguiente forma:
+
+```bash
+npm install webpack-dev-server -D
+```
+para utilizarlo se debe generar el siguiente script en `package.json`:
+```js
+"scripts": {
+  ...
+  "server": "webpack-dev-server"
+}
+```
+
+Una vez que se ejecute este script nos creara una direccion de un servidor local. ej. `http://localhost:8080`.
+
+## Hot Module Replacement
+
+Hot Module Replacement (HMR) es un plugin de Webpack que permite intercambiar, agregar o eliminar módulos en tiempo de ejecución, sin una recarga completa de la página.
+
+Se deben adicionar las siguientes configuraciones al archivo `webpack.config.js`:
+
+```js
+const webpack = require('webpack');
+//...
+module.exports = {
+  //...
+  devServer: {
+    hot: true,
+    open: true,
+    port:9000
+  },
+  plugins: [
+    //...
+    new webpack.HotModuleReplacementPlugin()
+  ]
+}
+```
+
+Cuando se trabaja en modo desarrollo, el plugin `MiniCssExtractPlugin` puede causar que el navegador se recargue ya que primero conpilara los archivos css y los enlazara con el archivo principal, para solucionar este problema en modo desarrollo, es recomendable cambiar el:
+
+```js
+module: {
+  rules: [{
+    use: [
+      {
+        loader: MiniCssExtractPlugin.loader
+      },
+    ]
+  }]
+}
+```
+por el:
+```js
+use: [
+  'style-loader'
+]
+```
+
+
+

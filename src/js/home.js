@@ -1,3 +1,11 @@
 import '../css/index.css';
+import text from  './text';
 
-document.body.innerHTML = "este es un mensaje desde webpack";
+text();
+
+if (module.hot) {
+  module.hot.accept('./text.js', function(){
+    console.log('he recargado en caliente')
+    text()
+  })
+}
