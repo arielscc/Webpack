@@ -223,3 +223,22 @@ Babel requerirá de configuración, ésta puede ser declarada dentro del webpack
 }
 ```
 
+Para utilizar funcionalidades algunas funcionalidades como sync await se debe instalar lo siguiente:
+
+```bash
+npm install -D @babel/plugin-transform-runtime
+```
+para que este plugin de babel funcione es necesario tener instalado:
+```bash
+npm install @babel/runtime
+```
+Y finalmente se tiene que adicionar las siguientes lineas al archivo `.babelrc`:
+
+```js
+{
+  ...
+  "plugins": [
+    "@babel/plugin-transform-runtime"
+  ]
+}
+```
