@@ -141,6 +141,12 @@ Una vez que se ejecute este script nos creara una direccion de un servidor local
 
 Hot Module Replacement (HMR) es un plugin de Webpack que permite intercambiar, agregar o eliminar módulos en tiempo de ejecución, sin una recarga completa de la página.
 
+HMR puede acelerar significativamente el desarrollo de las siguientes formas:
+
+Conservando el estado de la aplicación que se pierde durante una recarga.
+Ahorre un valioso tiempo de desarrollo actualizando solo lo que ha cambiado.
+Actualice al instante el navegador cuando se realicen modificaciones a CSS / JS en el código fuente, que es casi comparable a cambiar los estilos directamente en las herramientas de desarrollo del navegador.
+
 Se deben adicionar las siguientes configuraciones al archivo `webpack.config.js`:
 
 ```js
@@ -179,6 +185,41 @@ use: [
   'style-loader'
 ]
 ```
+## Soporte de Javascript moderno
+Javascript es un lenguaje en constante evolución, cada año se encuentra agragando nuevas funcionalidades.
 
+Una de las mayores ventajas y desventajas que tenemos es que javascript se corre en el navegador, lo que significa uso menor de recursos de parte de nuestros servidores, pero también que los navegadores se actualizan más lento que los nuevos releases de las versiones, además de que existen diferentes navegadores que soportan diferentes funcionalidades.
 
+Para poder tener un mejor developer experience (que los desarrolladores programen más rápido) con las funcionalidades modernas de JavaScript es necesario utilizar un transpilador de código, siendo el más popular babel.
+
+El papel de babel será el de transpilar (convertir y adaptar código) escrito en estándares modernos (normalmente superior a ecmaScript 2015) a estándares que soporten la mayoría de los navegadores, de esta manera el desarrollador se preocupa por porgramar de manera cómoda y webpack con babel lo convierten en lo que sea mejor para los navegadores.
+
+Para hacer uso de Babel en webpack, como éste tiene un loader (babel-loader), tenemos que instalar @babel/core (que tiene la funcionalidad básica de babel) y babel-loader e instanciar el loader dentro de nuestras rules de la siguiente manera:
+
+```bash
+npm install -D @babel/core @babel/preset-env babel-loader
+```
+Y en el archivo `webpack.config.js` se debera adicionar:
+```js
+  module: {
+    rules: [
+    ...
+      {
+        test: /\.js$/,
+        use: 'babel-loader',
+        exclude: /node_modules/
+      }
+    ]
+  },
+```
+
+Babel requerirá de configuración, ésta puede ser declarada dentro del webpack, pero se recomienda hacerlo dentro de un archivo llamado `.babelrc` que leerá babel a la hora de ser configurado por webpack.
+
+```js
+{
+  "presets": [
+    "@babel/preset-env"
+  ]
+}
+```
 
